@@ -6,7 +6,7 @@
 /*   By: jewlee <jewlee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 10:50:50 by minhulee          #+#    #+#             */
-/*   Updated: 2024/09/02 14:45:50 by jewlee           ###   ########.fr       */
+/*   Updated: 2024/09/02 14:52:11 by jewlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@
 # define K_A				0
 # define K_S				1
 # define K_D				2
+# define K_LEFT				123
+# define K_RIGHT			124
 
 typedef enum e_bool
 {
