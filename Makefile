@@ -19,6 +19,15 @@ SRCS_MAND		=		./srcs/cub3d.c				\
 						./srcs/1_parsing/util.c		\
 						./srcs/1_parsing/load.c		\
 						./srcs/1_parsing/map.c		\
+						./srcs/2_executing/executing.c \
+						./srcs/2_executing/init.c \
+						./srcs/2_executing/key.c \
+						./srcs/2_executing/preparing.c \
+						./srcs/2_executing/setup.c \
+						./srcs/2_executing/raycasting/raycasting.c \
+						./srcs/2_executing/raycasting/calculating.c \
+						./srcs/2_executing/raycasting/utils.c \
+						./srcs/utils/mlx.c
 
 SRCS_BONUS			=
 

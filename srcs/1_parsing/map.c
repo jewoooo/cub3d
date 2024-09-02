@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minhulee <minhulee@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jewlee <jewlee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 16:45:54 by minhulee          #+#    #+#             */
-/*   Updated: 2024/08/27 16:06:14 by minhulee         ###   ########seoul.kr  */
+/*   Updated: 2024/09/02 13:49:20 by jewlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,13 @@ void	fill_map_line(t_tile_type **map, char *line, int row)
 		else if (line[cursor] == '1')
 			map[row][i] = WALL;
 		else if (line[cursor] == 'N')
-			map[row][i] = START;
+			map[row][i] = ST_N;
+		else if (line[cursor] == 'S')
+			map[row][i] = ST_S;
+		else if (line[cursor] == 'W')
+			map[row][i] = ST_W;
+		else if (line[cursor] == 'E')
+			map[row][i] = ST_E;
 		else if (line[cursor] != ' ')
 			ft_err("parsing :: invalid map data");
 		cursor++;

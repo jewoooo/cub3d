@@ -1,32 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strnstr.c                                       :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jewlee <jewlee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/10 12:55:21 by minhulee          #+#    #+#             */
-/*   Updated: 2024/09/02 14:17:12 by jewlee           ###   ########.fr       */
+/*   Created: 2024/09/02 14:36:14 by jewlee            #+#    #+#             */
+/*   Updated: 2024/09/02 14:36:32 by jewlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../../includes/cub3d.h"
 
-char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
+bool	is_out_of_map(t_cub3d *info)
 {
-	size_t	i;
-	size_t	n_len;
+	t_player	*player;
 
-	n_len = ft_strlen(needle);
-	if (!n_len)
-		return ((char *)haystack);
-	i = 0;
-	while (*(haystack + i) && i < len)
-	{
-		if (*(haystack + i) == *needle && i + n_len <= len)
-			if (!ft_strncmp(haystack + i, needle, n_len))
-				return ((char *)haystack + i);
-		i++;
-	}
-	return (0);
+	player = info->player;
+	if (player->map_x < 0 ||
+		player->map_x >= info->map_data.width||
+			player->map_y < 0 ||
+			player->map_y >= info->map_data.height)
+		return (true);
+	if (info->map_data.map[info->player->map_y][info->player->map_x] == EMPTY)
+		return (true);
+	return (false);	
 }

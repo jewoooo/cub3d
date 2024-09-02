@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minhulee <minhulee@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jewlee <jewlee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 10:50:05 by minhulee          #+#    #+#             */
-/*   Updated: 2024/08/26 17:13:02 by minhulee         ###   ########seoul.kr  */
+/*   Updated: 2024/09/02 14:30:40 by jewlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ void	init_info(t_cub3d *info)
 	info->mlx = mlx_init();
 	if (!info->mlx)
 		ft_err("init :: mlx obj create failed..");
-	info->window = mlx_new_window(info->mlx, 64, 64, "title");
-	if (!info->window)
-		ft_err("init :: window obj create failed..");
+	// info->window = mlx_new_window(info->mlx, 64, 64, "title");
+	// if (!info->window)
+		// ft_err("init :: window obj create failed..");
 	info->map_data.map = NULL;
 	info->map_data.start = 0;
 	info->map_data.width = 0;
@@ -44,5 +44,5 @@ int	main(int argc, char **argv)
 		ft_err("no argument or more than 2 arguments.\n");
 	init_info(&info);
 	parsing(&info, argv[1]);
-
+	execute(&info);
 }

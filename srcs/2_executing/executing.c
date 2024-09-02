@@ -1,32 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strnstr.c                                       :+:      :+:    :+:   */
+/*   executing.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jewlee <jewlee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/10 12:55:21 by minhulee          #+#    #+#             */
-/*   Updated: 2024/09/02 14:17:12 by jewlee           ###   ########.fr       */
+/*   Created: 2024/09/02 13:45:14 by jewlee            #+#    #+#             */
+/*   Updated: 2024/09/02 14:39:20 by jewlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../includes/cub3d.h"
 
-char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
+static int render_frame(t_cub3d *info)
 {
-	size_t	i;
-	size_t	n_len;
-
-	n_len = ft_strlen(needle);
-	if (!n_len)
-		return ((char *)haystack);
-	i = 0;
-	while (*(haystack + i) && i < len)
-	{
-		if (*(haystack + i) == *needle && i + n_len <= len)
-			if (!ft_strncmp(haystack + i, needle, n_len))
-				return ((char *)haystack + i);
-		i++;
-	}
+	prepare_image(info);
+	cast_rays(info);
+	mlx_put_image_to_window(info->mlx, info->window, info->data->img, 0, 0);
 	return (0);
+}
+
+void	execute(t_cub3d *info)
+{
+	prepare_for_executing(info);
+	mlx_loop_hook(info->mlx, &render_frame, info);
+	mlx_hook(info->window, X_EVENT_KEY_PRESS, 0, &key_press, info);
+	mlx_loop(info->mlx);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   util.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minhulee <minhulee@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jewlee <jewlee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 17:56:54 by minhulee          #+#    #+#             */
-/*   Updated: 2024/08/27 16:01:03 by minhulee         ###   ########seoul.kr  */
+/*   Updated: 2024/09/02 13:49:42 by jewlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,14 @@ void	test_map_array(t_map_data *map_data, t_tile_type **map)
 				ft_printf("0 ");
 			else if (map[i][j] == WALL)
 				ft_printf("1 ");
-			else if (map[i][j] == START)
+			else if (map[i][j] == ST_N)
 				ft_printf("N ");
+			else if (map[i][j] == ST_S)
+				ft_printf("S ");
+			else if (map[i][j] == ST_W)
+				ft_printf("W ");
+			else if (map[i][j] == ST_E)
+				ft_printf("E ");
 			j++;
 		}
 		ft_printf("]\n");
