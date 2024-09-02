@@ -6,11 +6,29 @@
 /*   By: jewlee <jewlee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 10:50:05 by minhulee          #+#    #+#             */
-/*   Updated: 2024/09/02 14:30:40 by jewlee           ###   ########.fr       */
+/*   Updated: 2024/09/02 16:15:08 by jewlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../includes/cub3d.h"
+
+void	init_buff(t_cub3d *info)
+{
+	int	i;
+
+	i = -1;
+	while (++i < S_HEIGHT)
+		ft_memset(info->buff[i], 0, sizeof(int) * S_WIDTH);
+}
+
+void	init_walls(t_cub3d *info)
+{
+	int	i;
+
+	i = -1;
+	while (++i < 4)
+		info->map_data.walls[i] = ft_calloc(T_HEIGHT * T_WIDTH, sizeof(int));
+}
 
 void	init_info(t_cub3d *info)
 {
@@ -19,9 +37,6 @@ void	init_info(t_cub3d *info)
 	info->mlx = mlx_init();
 	if (!info->mlx)
 		ft_err("init :: mlx obj create failed..");
-	// info->window = mlx_new_window(info->mlx, 64, 64, "title");
-	// if (!info->window)
-		// ft_err("init :: window obj create failed..");
 	info->map_data.map = NULL;
 	info->map_data.start = 0;
 	info->map_data.width = 0;
@@ -33,7 +48,11 @@ void	init_info(t_cub3d *info)
 		info->map_data.ceil[i] = -1;
 		i++;
 	}
-	ft_memset(&info->map_data.walls, 0, sizeof(void *) * 4);
+	init_buff(info);
+	init_walls(info);
+	info->data = ft_calloc(1, sizeof(t_img));
+	if (!info->data)
+		ft_err("init :: failed malloc (t_img).");
 }
 
 int	main(int argc, char **argv)

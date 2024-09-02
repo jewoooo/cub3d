@@ -6,13 +6,21 @@
 /*   By: jewlee <jewlee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 13:59:01 by jewlee            #+#    #+#             */
-/*   Updated: 2024/09/02 15:12:38 by jewlee           ###   ########.fr       */
+/*   Updated: 2024/09/02 15:38:10 by jewlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-// 스타팅 예외처리 필요함. 벽으로 인지함.
+// 어디로 빼야할지?
+bool	is_available_tile(int x, int y, t_tile_type **map)
+{
+	if (map[y][x] == GROUND || map[y][x] == ST_N ||
+		map[y][x] == ST_S || map[y][x] == ST_W || map[y][x] == ST_E)
+		return (true);
+	return (false);
+}
+
 static void	move_forward_backward(t_cub3d *info, int key)
 {
 	t_player	*player;
@@ -22,21 +30,20 @@ static void	move_forward_backward(t_cub3d *info, int key)
 	map = info->map_data.map;
 	if (key == K_W)
 	{
-		if (!map[(int)player->pos_y][(int)(player->pos_x + player->dir_x * MOVE_SPD)])
+		if (is_available_tile((int)(player->pos_x + player->dir_x * MOVE_SPD), (int)player->pos_y, map))
 			player->pos_x += player->dir_x * MOVE_SPD;
-		if (!map[(int)(player->pos_y + player->dir_y * MOVE_SPD)][(int)player->pos_x])
+		if (is_available_tile((int)player->pos_x, (int)(player->pos_y + player->dir_y * MOVE_SPD), map))
 			player->pos_y += player->dir_y * MOVE_SPD;
 	}
 	if (key == K_S)
 	{
-		if (!map[(int)player->pos_y][(int)(player->pos_x - player->dir_x * MOVE_SPD)])
+		if (is_available_tile((int)(player->pos_x - player->dir_x * MOVE_SPD), (int)player->pos_y, map))
 			player->pos_x -= player->dir_x * MOVE_SPD;
-		if (!map[(int)(player->pos_y - player->dir_y * MOVE_SPD)][(int)player->pos_x])
+		if (is_available_tile((int)player->pos_x, (int)(player->pos_y - player->dir_y * MOVE_SPD), map))
 			player->pos_y -= player->dir_y * MOVE_SPD;
 	}
 }
 
-// 스타팅 예외처리 필요함. 벽으로 인지함.
 static void	move_left_right(t_cub3d *info, int key)
 {
 	t_player	*player;
@@ -46,16 +53,16 @@ static void	move_left_right(t_cub3d *info, int key)
 	map = info->map_data.map;
 	if (key == K_A)
 	{
-		if (!map[(int)player->pos_y][(int)(player->pos_x + player->dir_y * MOVE_SPD)])
+		if (is_available_tile((int)(player->pos_x + player->dir_y * MOVE_SPD), (int)player->pos_y, map))
 			player->pos_x += player->dir_y * MOVE_SPD;
-		if (!map[(int)(player->pos_y - player->dir_x * MOVE_SPD)][(int)player->pos_x])
+		if (is_available_tile((int)player->pos_x, (int)(player->pos_y - player->dir_x * MOVE_SPD), map))
 			player->pos_y -= player->dir_x * MOVE_SPD;
 	}
 	if (key == K_D)
 	{
-		if (!map[(int)player->pos_y][(int)(player->pos_x - player->dir_y * MOVE_SPD)])
+		if (is_available_tile((int)(player->pos_x - player->dir_y * MOVE_SPD), (int)player->pos_y, map))
 			player->pos_x -= player->dir_y * MOVE_SPD;
-		if (!map[(int)(player->pos_y + player->dir_x * MOVE_SPD)][(int)player->pos_x])
+		if (is_available_tile((int)player->pos_x, (int)(player->pos_y + player->dir_x * MOVE_SPD), map))
 			player->pos_y += player->dir_x * MOVE_SPD;
 	}
 }

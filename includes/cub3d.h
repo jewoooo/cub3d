@@ -6,7 +6,7 @@
 /*   By: jewlee <jewlee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 10:50:50 by minhulee          #+#    #+#             */
-/*   Updated: 2024/09/02 14:52:11 by jewlee           ###   ########.fr       */
+/*   Updated: 2024/09/02 16:14:11 by jewlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@
 # define ROT_SPD 0.3
 # define S_WIDTH 640
 # define S_HEIGHT 480
+# define T_WIDTH 64
+# define T_HEIGHT 64
 
 /* key constants */
 # define X_EVENT_KEY_PRESS	2
@@ -73,7 +75,7 @@ typedef	struct s_map_data
 	int			height;
 	int			floor[3];
 	int			ceil[3];
-	void		*walls[4]; // NO SO WE EA
+	int			*walls[4]; // NO SO WE EA
 }	t_map_data;
 
 typedef struct s_img
@@ -120,6 +122,7 @@ typedef struct s_cub3d
 {
 	void		*mlx;
 	void		*window;
+	int			buff[S_HEIGHT][S_WIDTH];
 	t_img		*data;
 	t_camera	*cam;
 	t_ray		*ray;
@@ -138,7 +141,8 @@ int		quick_open_file(char *file, int line);
 char	*remove_space(char *src);
 void	test_map_array(t_map_data *map_data, t_tile_type **map);
 /* load */
-void	*load_xpm(t_cub3d *info, char *path, int size);
+// void	*load_xpm(t_cub3d *info, char *path, int size);
+void	load_image(t_cub3d *info, int *wall, char *path, int size);
 /* valid */
 void	is_valid_file_name(char *file);
 void	is_valid_map(t_map_data *map_data, t_tile_type **map);
