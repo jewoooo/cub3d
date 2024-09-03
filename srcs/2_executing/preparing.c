@@ -6,7 +6,7 @@
 /*   By: jewlee <jewlee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 13:55:35 by jewlee            #+#    #+#             */
-/*   Updated: 2024/09/02 14:35:22 by jewlee           ###   ########.fr       */
+/*   Updated: 2024/09/02 16:27:28 by jewlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ void	prepare_image(t_cub3d *info)
 void	prepare_for_executing(t_cub3d *info)
 {
 	info->window = mlx_new_window(info->mlx, S_WIDTH, S_HEIGHT, "cub3d");
+	if (!info->window)
+		ft_err("prepare_for_executing :: failed to create window.");
 	init_structs(info);
 	setup_player_and_camera(info);
 }

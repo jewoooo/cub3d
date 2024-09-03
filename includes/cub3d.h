@@ -6,7 +6,7 @@
 /*   By: jewlee <jewlee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 10:50:50 by minhulee          #+#    #+#             */
-/*   Updated: 2024/09/02 16:14:11 by jewlee           ###   ########.fr       */
+/*   Updated: 2024/09/02 22:25:01 by jewlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,8 @@ typedef	struct s_map_data
 	int			height;
 	int			floor[3];
 	int			ceil[3];
-	int			*walls[4]; // NO SO WE EA
+	void		*walls[4]; // NO SO WE EA
+	int			*texture[4];
 }	t_map_data;
 
 typedef struct s_img
@@ -123,12 +124,27 @@ typedef struct s_cub3d
 	void		*mlx;
 	void		*window;
 	int			buff[S_HEIGHT][S_WIDTH];
+	bool		re_buf;
 	t_img		*data;
 	t_camera	*cam;
 	t_ray		*ray;
 	t_player	*player;
 	t_map_data	map_data;
 }	t_cub3d;
+
+typedef struct s_var
+{
+	int		line_h;
+	int		draw_st;
+	int		draw_en;
+	int		color;
+	int		tex_num;
+	double	wall_x;
+	int		tex_x;
+	int		tex_y;
+	double	step;
+	double	tex_pos;
+}	t_var;
 
 /* 0_exit */
 void	ft_err(char *err);
@@ -141,7 +157,7 @@ int		quick_open_file(char *file, int line);
 char	*remove_space(char *src);
 void	test_map_array(t_map_data *map_data, t_tile_type **map);
 /* load */
-// void	*load_xpm(t_cub3d *info, char *path, int size);
+void	*load_xpm(t_cub3d *info, char *path, int size);
 void	load_image(t_cub3d *info, int *wall, char *path, int size);
 /* valid */
 void	is_valid_file_name(char *file);
@@ -170,9 +186,11 @@ void	calc_delta_dist(t_cub3d *info);
 void	calc_step_and_side_dist(t_cub3d *info);
 void	calc_dist(t_cub3d *info);
 void	execute_dda(t_cub3d *info);
+void	calc_vertical_line(t_cub3d *info, t_var *vars);
 /* utils */
 bool	is_out_of_map(t_cub3d *info);
 
 /* utils/mlx */
 void	my_mlx_pixel_put(t_img *data, int x, int y, int color);
+
 #endif

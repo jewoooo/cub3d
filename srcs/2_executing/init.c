@@ -6,7 +6,7 @@
 /*   By: jewlee <jewlee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 13:57:00 by jewlee            #+#    #+#             */
-/*   Updated: 2024/09/02 14:13:56 by jewlee           ###   ########.fr       */
+/*   Updated: 2024/09/02 16:25:26 by jewlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,4 @@ void	init_structs(t_cub3d *info)
 	info->player = ft_calloc(1, sizeof(t_player));
 	if (!info->player)
 		ft_err("init_structs :: failed malloc (*player).");
-	info->data = ft_calloc(1, sizeof(t_img));
-	if (!info->data)
-		ft_err("init_structs :: failed malloc (*data).");
 }

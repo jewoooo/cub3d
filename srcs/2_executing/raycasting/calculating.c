@@ -6,7 +6,7 @@
 /*   By: jewlee <jewlee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 14:35:33 by jewlee            #+#    #+#             */
-/*   Updated: 2024/09/02 14:36:29 by jewlee           ###   ########.fr       */
+/*   Updated: 2024/09/02 22:07:00 by jewlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,25 +61,13 @@ void	calc_dist(t_cub3d *info)
 		info->ray->dist = (info->player->map_y - info->player->pos_y + (1 - info->ray->step_y) / 2) / info->ray->dir_y;
 }
 
-void	execute_dda(t_cub3d *info)
+void	calc_vertical_line(t_cub3d *info, t_var *vars)
 {
-	info->ray->is_hit = false;
-	while (info->ray->is_hit == false)
-	{
-		if (info->ray->side_dist_x < info->ray->side_dist_y)
-		{
-			info->ray->side_dist_x += info->ray->delta_dist_x;
-			info->player->map_x += info->ray->step_x;
-			info->ray->is_side = false;
-		}
-		else
-		{
-			info->ray->side_dist_y += info->ray->delta_dist_y;
-			info->player->map_y += info->ray->step_y;
-			info->ray->is_side = true;
-		}
-		if (is_out_of_map(info) == true ||
-			info->map_data.map[info->player->map_y][info->player->map_x] == WALL)
-			info->ray->is_hit = true;
-	}
+	vars->line_h = (int)(S_HEIGHT / info->ray->dist);
+	vars->draw_st = -vars->line_h / 2 + S_HEIGHT / 2;
+	if (vars->draw_st < 0)
+		vars->draw_st = 0;
+	vars->draw_en = vars->line_h / 2 + S_HEIGHT / 2;
+	if (vars->draw_en >= S_HEIGHT)
+		vars->draw_en = S_HEIGHT - 1;
 }
