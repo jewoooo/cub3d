@@ -6,7 +6,7 @@
 /*   By: jewlee <jewlee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 10:50:05 by minhulee          #+#    #+#             */
-/*   Updated: 2024/09/02 22:23:01 by jewlee           ###   ########.fr       */
+/*   Updated: 2024/09/03 14:59:06 by jewlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,12 @@
 
 void	init_buff(t_cub3d *info)
 {
-	int	i;
+	//int	i;
 
-	i = -1;
-	while (++i < S_HEIGHT)
-		ft_memset(info->buff[i], 0, sizeof(int) * S_WIDTH);
+	//i = -1;
+	////while (++i < S_HEIGHT)
+	////	ft_memset(info->buff[i], 0, sizeof(int) * S_WIDTH);
+	ft_memset(info->buff, 0, sizeof(info->buff));
 }
 
 void	init_walls(t_cub3d *info)
@@ -53,6 +54,7 @@ void	init_info(t_cub3d *info)
 	info->data = ft_calloc(1, sizeof(t_img));
 	if (!info->data)
 		ft_err("init :: failed malloc (t_img).");
+	ft_memset(info->map_data.texture, 0, sizeof(void *) * 4);
 }
 
 int	main(int argc, char **argv)

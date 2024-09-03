@@ -6,12 +6,14 @@
 /*   By: jewlee <jewlee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 14:35:33 by jewlee            #+#    #+#             */
-/*   Updated: 2024/09/02 22:07:00 by jewlee           ###   ########.fr       */
+/*   Updated: 2024/09/03 16:02:18 by jewlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/cub3d.h"
 
+// 여기서 sidedist x 는 side y 이다!
+// delta 도 동일하다.
 void	calc_ray_direction(t_cub3d *info, int x)
 {
 	double	camera_x;
@@ -55,10 +57,14 @@ void	calc_step_and_side_dist(t_cub3d *info)
 
 void	calc_dist(t_cub3d *info)
 {
-	if (info->ray->is_side == false)
-		info->ray->dist = (info->player->map_x - info->player->pos_x + (1 - info->ray->step_x) / 2) / info->ray->dir_x;
-	else
+	// if (info->ray->is_side == false)// 수평면
+	// 	info->ray->dist = (info->player->map_x - info->player->pos_x + (1 - info->ray->step_x) / 2) / info->ray->dir_x;
+	// else
+	// 	info->ray->dist = (info->player->map_y - info->player->pos_y + (1 - info->ray->step_y) / 2) / info->ray->dir_y;
+	if (info->ray->is_side == false)// 수평면
 		info->ray->dist = (info->player->map_y - info->player->pos_y + (1 - info->ray->step_y) / 2) / info->ray->dir_y;
+	else// 수직면
+		info->ray->dist = (info->player->map_x - info->player->pos_x + (1 - info->ray->step_x) / 2) / info->ray->dir_x;
 }
 
 void	calc_vertical_line(t_cub3d *info, t_var *vars)

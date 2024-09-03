@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jewlee <jewlee@student.42.fr>              +#+  +:+       +#+        */
+/*   By: minhulee <minhulee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 10:56:40 by minhulee          #+#    #+#             */
-/*   Updated: 2024/09/02 22:23:31 by jewlee           ###   ########.fr       */
+/*   Updated: 2024/09/03 11:19:01 by minhulee         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,14 +69,14 @@ char	*convert_to_w_f_c(t_cub3d *info, t_map_data *map_data, int fd)
 		map_data->start++;
 		if (line[0] == '\n')
 			continue ;
-		else if (!map_data->walls[NO] && !ft_strncmp(line, "NO ", 3))
-			map_data->walls[NO] = load_xpm(info, remove_space(line + 2), 64);
-		else if (!map_data->walls[SO] && !ft_strncmp(line, "SO ", 3))
-			map_data->walls[SO] = load_xpm(info, remove_space(line + 2), 64);
-		else if (!map_data->walls[WE] && !ft_strncmp(line, "WE ", 3))
-			map_data->walls[WE] = load_xpm(info, remove_space(line + 2), 64);
-		else if (!map_data->walls[EA] && !ft_strncmp(line, "EA ", 3))
-			map_data->walls[EA] = load_xpm(info, remove_space(line + 2), 64);
+		else if (!map_data->texture[NO] && !ft_strncmp(line, "NO ", 3))
+			map_data->texture[NO] = load_xpm(info, remove_space(line + 2), 64);
+		else if (!map_data->texture[SO] && !ft_strncmp(line, "SO ", 3))
+			map_data->texture[SO] = load_xpm(info, remove_space(line + 2), 64);
+		else if (!map_data->texture[WE] && !ft_strncmp(line, "WE ", 3))
+			map_data->texture[WE] = load_xpm(info, remove_space(line + 2), 64);
+		else if (!map_data->texture[EA] && !ft_strncmp(line, "EA ", 3))
+			map_data->texture[EA] = load_xpm(info, remove_space(line + 2), 64);
 		else if (map_data->floor[0] < 0 && !ft_strncmp(line, "F ", 2))
 			convert_to_color(&(map_data->floor), remove_space(line + 1));
 		else if (map_data->ceil[0] < 0 && !ft_strncmp(line, "C ", 2))
@@ -95,4 +95,5 @@ void	parsing(t_cub3d *info, char *file)
 	convert_to_w_f_c(info, &info->map_data, quick_open_file(file, 0));
 	is_valid_wfc(info);
 	convert_to_map(info, &info->map_data, file);
+	load_texture(info);
 }

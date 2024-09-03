@@ -6,7 +6,7 @@
 /*   By: jewlee <jewlee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 17:46:44 by minhulee          #+#    #+#             */
-/*   Updated: 2024/09/02 22:28:29 by jewlee           ###   ########.fr       */
+/*   Updated: 2024/09/03 15:24:20 by jewlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,22 +33,22 @@ void	load_image(t_cub3d *info, int *wall, char *path, t_img *img)
 
 	size = T_WIDTH;
 	img->img = load_xpm(info, path, size);
-	img->addr = (int *)mlx_get_data_addr(img->img, &img->bpp,
+	img->addr = mlx_get_data_addr(img->img, &img->bpp,
 			&img->line_len, &img->endian);
 	i = -1;
 	while (++i < size)
 	{
 		j = -1;
 		while (++j < size)
-			wall[i * size + j] = img->addr[i * size + j];
+			wall[i * size + j] = ((int *)img->addr)[i * size + j];
 	}
 	mlx_destroy_image(info->mlx, img->img);
 }
 
 void	load_texture(t_cub3d *info)
 {
-	load_image(info, info->map_data.texture[NO], "./textures/NO.xpm", info->data);
-	load_image(info, info->map_data.texture[SO], "./textures/SO.xpm", info->data);
-	load_image(info, info->map_data.texture[WE], "./textures/WE.xpm", info->data);
-	load_image(info, info->map_data.texture[EA], "./textures/EA.xpm", info->data);
+	load_image(info, info->map_data.walls[NO], "./textures/wall/NO.xpm ", info->data);
+	load_image(info, info->map_data.walls[SO], "./textures/wall/SO.xpm ", info->data);
+	load_image(info, info->map_data.walls[WE], "./textures/wall/WE.xpm ", info->data);
+	load_image(info, info->map_data.walls[EA], "./textures/wall/EA.xpm ", info->data);
 }

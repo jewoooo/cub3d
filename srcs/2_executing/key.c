@@ -6,7 +6,7 @@
 /*   By: jewlee <jewlee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 13:59:01 by jewlee            #+#    #+#             */
-/*   Updated: 2024/09/02 15:38:10 by jewlee           ###   ########.fr       */
+/*   Updated: 2024/09/03 15:17:25 by jewlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,16 +90,18 @@ static void	rotate_left_right(t_cub3d *info, int key)
 	}
 }
 
-// 게걸음 + 방향표 눌렀을때 화면 돌리기 구현해야함.
 int	key_press(int key, t_cub3d *info)
 {
 	if (key == K_ESC)
 		exit(0);
+	info->re_buf = true;
 	if (key == K_W || key == K_S)
 		move_forward_backward(info, key);
 	if (key == K_A || key == K_D)
 		move_left_right(info, key);
 	if (key == K_LEFT || key == K_RIGHT)
 		rotate_left_right(info, key);
+	mlx_clear_window(info->mlx, info->window);
+	render_frame(info);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: jewlee <jewlee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 10:50:50 by minhulee          #+#    #+#             */
-/*   Updated: 2024/09/02 22:25:01 by jewlee           ###   ########.fr       */
+/*   Updated: 2024/09/03 14:59:00 by jewlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@
 # include "../lib/ft_printf/ft_printf.h"
 
 # define NONE -1
-# define MOVE_SPD 0.5
-# define ROT_SPD 0.3
+# define MOVE_SPD 0.1
+# define ROT_SPD 0.05
 # define S_WIDTH 640
 # define S_HEIGHT 480
 # define T_WIDTH 64
@@ -75,8 +75,8 @@ typedef	struct s_map_data
 	int			height;
 	int			floor[3];
 	int			ceil[3];
-	void		*walls[4]; // NO SO WE EA
-	int			*texture[4];
+	int			*walls[4]; // NO SO WE EA
+	void		*texture[4];
 }	t_map_data;
 
 typedef struct s_img
@@ -88,6 +88,8 @@ typedef struct s_img
 	int		endian;
 }	t_img;
 
+// 우리가 화면에 그릴려고 준비한 배열 -> int *buff / width * height
+// get_addr의 결과 -> char * -> 
 typedef struct s_camera
 {
 	double	plane_x;
@@ -134,16 +136,17 @@ typedef struct s_cub3d
 
 typedef struct s_var
 {
-	int		line_h;
-	int		draw_st;
-	int		draw_en;
-	int		color;
-	int		tex_num;
-	double	wall_x;
-	int		tex_x;
-	int		tex_y;
-	double	step;
-	double	tex_pos;
+	int			line_h;
+	int			draw_st;
+	int			draw_en;
+	int			color;
+	int			tex_num;
+	t_wall_type	type;
+	double		wall_x;
+	int			tex_x;
+	int			tex_y;
+	double		step;
+	double		tex_pos;
 }	t_var;
 
 /* 0_exit */
@@ -151,6 +154,7 @@ void	ft_err(char *err);
 void	ft_err_map(char *err, int row, int col);
 
 /* 1_parsing */
+void	load_texture(t_cub3d *info);
 void	parsing(t_cub3d *info, char *file);
 /* utils */
 int		quick_open_file(char *file, int line);
@@ -158,7 +162,6 @@ char	*remove_space(char *src);
 void	test_map_array(t_map_data *map_data, t_tile_type **map);
 /* load */
 void	*load_xpm(t_cub3d *info, char *path, int size);
-void	load_image(t_cub3d *info, int *wall, char *path, int size);
 /* valid */
 void	is_valid_file_name(char *file);
 void	is_valid_map(t_map_data *map_data, t_tile_type **map);
@@ -168,13 +171,13 @@ void	convert_to_map(t_cub3d *info, t_map_data *map_data, char *file);
 /* 2_executing */
 /* executing */
 void	execute(t_cub3d *info);
+int		render_frame(t_cub3d *info);
 /* setup */
 void	setup_player_and_camera(t_cub3d *info);
 /* init */
 void	init_structs(t_cub3d *info);
 /* preparing */
 void	prepare_for_executing(t_cub3d *info);
-void	prepare_image(t_cub3d *info);
 /* key */
 int		key_press(int key, t_cub3d *info);
 
